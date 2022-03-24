@@ -78,7 +78,7 @@ class Validator {
     // validar emails
     emailvalidate(input){
         
-        let re = /\S+@\S+\.S+/;
+        let re = /\S+@\S+\.\S+/;
         let email = input.value;
 
     let errorMessage = `Insira um e-mail no padrão matheus@email.com`;
