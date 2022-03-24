@@ -2,12 +2,25 @@ class Validator {
     
     constructor(){
         this.validations = [
+            'data-required',
             'data-min-length',
+            'data-max-length',
+            'data-email-validate',
+            
         ]
     }
 
     // iniciar a validação de todos os campos
     validate(form) {
+
+       
+        // limpa todas as validações antigas
+        let currentValidations = document.querySelectorAll('form .error-validation');
+
+        if(currentValidations.length) {
+            this.cleanValidations(currentValidations);
+        }
+        
 
         //pegar os inputs
         let inputs = form.getElementsByTagName('input');
@@ -37,6 +50,7 @@ class Validator {
             }
         }, this);
     }
+    
     // método para validar se tem um mínimo de caracteres
     minlength(input, minValue) {
         
@@ -48,17 +62,67 @@ class Validator {
             this.printMessage(input, errorMessage);
           }
     }
+    
+    // método para validar se passou do máximo de caracteres
+    maxlength(input, maxValue) {
 
-    printMessage(input, msg) {
-        let template = document.querySelector('.error-validation').cloneNode(true);
-
-        template.textContent = msg;
+        let inputLength = input.value.length;
+    
+        let errorMessage = `O campo precisa ter menos que ${maxValue} caracteres`;
+    
+        if(inputLength > maxValue) {
+          this.printMessage(input, errorMessage);
+        }
+    
+      }
+    // validar emails
+    emailvalidate(input){
         
-        let inputParent = input.parentNode;
+        let re = /\S+@\S+\.S+/;
+        let email = input.value;
 
-        template.classList.remove('template');
+    let errorMessage = `Insira um e-mail no padrão matheus@email.com`;
 
-        inputParent.appendChild(template);
+    if(!re.test(email)) {
+      this.printMessage(input, errorMessage);
+    }
+}
+    
+    // método para imprimir mensagens de erro na tela  
+    printMessage(input, msg) {
+      
+    // checa os erros presentes no input
+    let errorsQty = input.parentNode.querySelector('.error-validation');
+
+    // imprimir erro só se não tiver erros
+    if(errorsQty === null) {
+      let template = document.querySelector('.error-validation').cloneNode(true);
+
+      template.textContent = msg;
+  
+      let inputParent = input.parentNode;
+  
+      template.classList.remove('template');
+  
+      inputParent.appendChild(template);
+    }
+
+  }
+   
+    // verifica se o input é requirido
+        required(input){
+            let inputValue = input.value;
+
+            if (inputValue === ''){
+                let errorMessage = `Este campo é obrigatório`;
+
+                this.printMessage(input, errorMessage);
+        }
+    }
+
+    // limpa as validações da tela
+    cleanValidations(validations) {
+        validations.forEach(el => el.remove());
     }
 }
 
