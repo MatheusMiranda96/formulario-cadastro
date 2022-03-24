@@ -8,7 +8,6 @@
     border: none;
 }
 input, label {
-    display: block;
     width: 100%;
 }
 input:focus, label:focus{
@@ -64,4 +63,37 @@ input{
     padding: 10px;
     font-size: 0.9rem;
     margin-bottom: 40px;
+}
+input:focus {
+    border-color: #E60084;
+}
+
+input[type="submit"] {
+    background-color: #E60084;
+    color: #FFF;
+    border: none;
+    border-radius: 20px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#agreement{
+    margin-right: 5px;
+    
+}
+#agreement, #agreement-label {
+    display: inline-block;
+    width: auto;
+}
+
+/* validações */
+
+.error-validation {
+    color: red;
+    position: absolute;
+    top: 57px;
+    font-size: .8rem;
+}
+.template {
+    display: none;
 }
