@@ -6,7 +6,9 @@ class Validator {
             'data-min-length',
             'data-max-length',
             'data-email-validate',
-            
+            'data-only-letters',
+            'data-equal', 
+            'data-password-validate',        
         ]
     }
 
@@ -87,6 +89,21 @@ class Validator {
       this.printMessage(input, errorMessage);
     }
 }
+    // valida se o campo tem apenas letras
+    onlyletters(input){
+
+        let re = /^[A-Za-z]+$/;
+
+        let inputValue = input.value;
+
+        let errorMessage = `Este campo não aceita números nem caracteres especiais`;
+
+        if(!re.test(inputValue)){
+        this.printMessage(input, errorMessage);
+        }
+
+    }
+
     
     // método para imprimir mensagens de erro na tela  
     printMessage(input, msg) {
@@ -120,11 +137,48 @@ class Validator {
         }
     }
 
+    // verifica se os campos de senha são iguais
+    equal(input, inputName){
+        
+        let inputToCompare = document.getElementsByName(inputName)[0];
+
+        let errorMessage = `Senhas não correspondem`;
+
+        if(input.value != inputToCompare.value){
+            this.printMessage(input, errorMessage);
+        }
+    }
+
+    // valida o campo de senha
+    // aqui descobri um erro que se coloco a senha com "espaço" ela passa na validação
+    passwordvalidate (input){
+        // explorar string em um array
+        let charArr = input.value.split("");
+
+        let uppercases = 0;
+        let numbers = 0;
+
+        for(let i = 0; charArr.length > i; i++){
+            if(charArr[i] === charArr[i].toUpperCase() && isNaN(parseInt(charArr[i]))){
+            uppercases++;    
+            }else if(!isNaN(parseInt(charArr[i]))){
+             numbers++;
+            }
+        }
+
+        if(uppercases === 0 || numbers ===0){
+          let errorMessage = `A senha precisa de um caractere maiúsculo e um número`;
+
+          this.printMessage(input, errorMessage);
+        }
+    }
+    
     // limpa as validações da tela
     cleanValidations(validations) {
         validations.forEach(el => el.remove());
     }
 }
+
 
 /* Resgatando os elementos */
 let form = document.getElementById("register-form");
