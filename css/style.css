@@ -18,9 +18,9 @@ a {
 }
 body {
     padding-top: 5vh; /* view heigt -> 5% da tela */
-    background-image: url('../img/sao\ jorge.jpg');
+    background-image: url('../img/cadastro_de_clientes.jpg');
     background-size: cover;
-    background-position-y: -150px;
+    background-position-y: -104px;
 }
 
 /* form */
