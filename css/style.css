@@ -44,6 +44,7 @@ form{
     justify-content: space-between;
 }
 .full-box{
+    
     flex: 1 1 100%;
     position: relative;
 }
